@@ -54,7 +54,7 @@ public class MyArrayList<T> implements MyList<T>,Iterable<T>{
             throw new OutOfMemoryError("OutOfMemoryError " + size);
         }
         if (size >= data.length) increaseCapacity();
-        this.data[size++] = elem;
+        data[size++] = elem;
         return true;
     }
 
@@ -65,11 +65,23 @@ public class MyArrayList<T> implements MyList<T>,Iterable<T>{
      * @return
      */
     @Override
-    public boolean add(T elem, int index) {
+    public boolean add(int index,T elem) {
         if (!lenghtValidation(index)){
             throw new IndexOutOfBoundsException("IndexOutOfBoundsException " + index + " Size " + data.length);
         }
-        data[index] = elem;
+        Object[] newData = new Object[data.length + 1];
+        int i = 0;
+        int y = 0;
+        for(;y < newData.length;y++){
+            if (y == index){
+                newData[index] = elem;
+                continue;
+            }
+            newData[y] = data[i];
+            i++;
+        }
+        data = Arrays.copyOf(newData,newData.length);
+        size++;
         return true;
     }
     /**
@@ -98,7 +110,7 @@ public class MyArrayList<T> implements MyList<T>,Iterable<T>{
     /**
      * increase capacity of array on half
      */
-    public void increaseCapacity(){
+    private void increaseCapacity(){
         int oldCapacity = data.length;
         int newCapacity = oldCapacity + (oldCapacity>>1);
         if (newCapacity > MAX_ARRAY_SIZE){

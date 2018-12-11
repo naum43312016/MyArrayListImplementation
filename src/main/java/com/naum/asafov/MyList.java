@@ -12,18 +12,18 @@ public interface MyList<T> extends Iterable<T> {
 
     /**
      * add element to list
-     * @param elem
-     * @return
+     * @param elem element to add
+     * @return true if aded
      */
     boolean add(T elem);
 
     /**
      * add element to specify index
-     * @param elem
-     * @param index
+     * @param elem element to add
+     * @param index index of element
      * @return
      */
-    boolean add(T elem,int index);
+    boolean add(int index,T elem);
 
     /**
      * get element by idnex
